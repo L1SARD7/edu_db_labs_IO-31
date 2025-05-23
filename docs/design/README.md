@@ -9,64 +9,92 @@
 @startuml
 left to right direction
 
-' Users
-entity Users <> #900052 {
-  id
-  login
-  email
-  password
-}
+' === USERS ===
+entity Users <> #900052
+entity Users.id <> #ed2f9b
+entity Users.login <> #ed2f9b
+entity Users.email <> #ed2f9b
+entity Users.password <> #ed2f9b
 
-' Surveys
-entity Surveys <> #450561 {
-  id
-  title
-  description
-  is_active
-  created_at
-  closed_at
-  author_id
-}
+Users.id --* Users
+Users.login --* Users
+Users.email --* Users
+Users.password --* Users
 
-' Questions
-entity Questions <> #316e7a {
-  id
-  survey_id
-  question_text
-  question_type
-  question_order
-}
+' === SURVEYS ===
+entity Surveys <> #754000
+entity Surveys.id <> #e39d2c
+entity Surveys.title <> #e39d2c
+entity Surveys.description <> #e39d2c
+entity Surveys.is_active <> #e39d2c
+entity Surveys.created_at <> #e39d2c
+entity Surveys.closed_at <> #e39d2c
+entity Surveys.author_id <> #e39d2c
 
-' Options
-entity Options <> #5b0673 {
-  id
-  question_id
-  option_text
-}
+Surveys.id --* Surveys
+Surveys.title --* Surveys
+Surveys.description --* Surveys
+Surveys.is_active --* Surveys
+Surveys.created_at --* Surveys
+Surveys.closed_at --* Surveys
+Surveys.author_id --* Surveys
 
-' Responses
-entity Responses <> #ad5a00 {
-  id
-  survey_id
-  user_id
-  submitted_at
-}
+' === QUESTIONS ===
+entity Questions <> #006080
+entity Questions.id <> #00b3b3
+entity Questions.survey_id <> #00b3b3
+entity Questions.question_text <> #00b3b3
+entity Questions.question_type <> #00b3b3
+entity Questions.question_order <> #00b3b3
 
-' Answers
-entity Answers <> #04378a {
-  id
-  response_id
-  question_id
-  answer_text
-  selected_option_ids
-}
+Questions.id --* Questions
+Questions.survey_id --* Questions
+Questions.question_text --* Questions
+Questions.question_type --* Questions
+Questions.question_order --* Questions
 
-' Relationships
+' === OPTIONS ===
+entity Options <> #334e68
+entity Options.id <> #86bbd8
+entity Options.question_id <> #86bbd8
+entity Options.option_text <> #86bbd8
+
+Options.id --* Options
+Options.question_id --* Options
+Options.option_text --* Options
+
+' === RESPONSES ===
+entity Responses <> #7b2cbf
+entity Responses.id <> #c77dff
+entity Responses.survey_id <> #c77dff
+entity Responses.user_id <> #c77dff
+entity Responses.submitted_at <> #c77dff
+
+Responses.id --* Responses
+Responses.survey_id --* Responses
+Responses.user_id --* Responses
+Responses.submitted_at --* Responses
+
+' === ANSWERS ===
+entity Answers <> #ff5d8f
+entity Answers.id <> #ffb3c1
+entity Answers.response_id <> #ffb3c1
+entity Answers.question_id <> #ffb3c1
+entity Answers.answer_text <> #ffb3c1
+entity Answers.selected_option_ids <> #ffb3c1
+
+Answers.id --* Answers
+Answers.response_id --* Answers
+Answers.question_id --* Answers
+Answers.answer_text --* Answers
+Answers.selected_option_ids --* Answers
+
+' === RELATIONS ===
 Users "1" -- "0..*" Surveys : author_id
 Surveys "1" -- "0..*" Questions : survey_id
 Questions "1" -- "0..*" Options : question_id
-Surveys "1" -- "0..*" Responses : survey_id
 Users "1" -- "0..*" Responses : user_id
+Surveys "1" -- "0..*" Responses : survey_id
 Responses "1" -- "0..*" Answers : response_id
 Questions "1" -- "0..*" Answers : question_id
 
