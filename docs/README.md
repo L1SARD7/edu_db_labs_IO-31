@@ -6,6 +6,8 @@ actionLink: /intro/
 footer: "ECL 2.0 Licensed | Copyright © [YYYY] [Your Name]"
 ---
 
+
+
 **Виконав(-ла):** 
 
 - студент 2-го курсу, групи ІО-31 [Клімчук Артем](https://t.me/L1SARD)
