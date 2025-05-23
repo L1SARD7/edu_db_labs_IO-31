@@ -5,7 +5,7 @@
 - ER-модель
 - реляційна схема
 
-# Модель бізнес-об'єктів
+## Модель бізнес-об'єктів
 @startuml
 
 left to right direction
@@ -70,7 +70,7 @@ Question ||--o{ Answer : asked by
 @enduml
 
 
-# ER-модель
+## ER-модель
 
 @startuml
 !define table(x) class x << (T,#FFAAAA) >>
@@ -143,6 +143,6 @@ Question ||--o{ Answer : asked_by
 
 @enduml
 
-# Реляційна схема
+## Реляційна схема
 
 ![Реляційна схема](./relation-scheme.png)

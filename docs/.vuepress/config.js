@@ -15,7 +15,7 @@ module.exports = {
     }]
   ],
   port: 3030,
-  base: '/edu_db_labs/',
+  base: '/edu_db_labs_IO-31/',
   theme: 'cool',
   // dest: 'dist',
   head: [
@@ -67,7 +67,7 @@ module.exports = {
 
   ],
     sidebarDepth: 2,
-    displayAllHeaders: true, // Default: false
+    displayAllHeaders: false, 
 
 
     nav: [
@@ -76,7 +76,7 @@ module.exports = {
 
     lastUpdated: 'Останнє оновлення', // string | boolean
       // Assumes GitHub. Can also be a full GitLab url.
-    repo: 'https://github.com/edu-db/edu_db_labs',
+    repo: 'https://github.com/L1SARD7/edu_db_labs_IO-31.git',
     // Customising the header label
     // Defaults to "GitHub"/"GitLab"/"Bitbucket" depending on `themeConfig.repo`
     repoLabel: 'Github',
@@ -95,7 +95,7 @@ module.exports = {
     // editLinkText: 'Ви можете покращити цю сторінку'
 
   },
-  title: 'Назва проєкту',
+  title: 'Система організації та управління опитуваннями експертів',
   description: 'Лабораторні роботи з дисципліни "Організація баз даних"',
   configureWebpack: {
     resolve: {
