@@ -7,141 +7,133 @@
 
 ## Модель бізнес-об'єктів
 @startuml
+title Business Object Model - Survey System
 
+' Напрямок зліва направо
 left to right direction
 
-entity "User" as User {
-  *id : INT
-  *email : VARCHAR
-  *passwordHash : VARCHAR
-  *role : VARCHAR
-  *isActive : BOOLEAN
+class Users {
+  +id: int
+  +login: varchar
+  +email: varchar
+  +password: varchar
 }
 
-entity "Survey" as Survey {
-  *id : INT
-  *title : VARCHAR
-  *description : TEXT
-  *status : VARCHAR
-  *creationDate : DATETIME
-  *closeDate : DATETIME
-  *userId : INT
+class Surveys {
+  +id: int
+  +title: varchar
+  +description: text
+  +is_active: boolean
+  +created_at: datetime
+  +closed_at: datetime
+  +author_id: int
 }
 
-entity "Question" as Question {
-  *id : INT
-  *text : TEXT
-  *type : VARCHAR
-  *isRequired : BOOLEAN
-  *order : INT
-  *surveyId : INT
+class Questions {
+  +id: int
+  +survey_id: int
+  +question_text: text
+  +question_type: enum
+  +question_order: int
 }
 
-entity "SurveyLink" as SurveyLink {
-  *id : INT
-  *token : VARCHAR
-  *isActive : BOOLEAN
-  *expiryDate : DATETIME
-  *clicks : INT
-  *surveyId : INT
+class Options {
+  +id: int
+  +question_id: int
+  +option_text: varchar
 }
 
-entity "Response" as Response {
-  *id : INT
-  *submissionDate : DATETIME
-  *isComplete : BOOLEAN
-  *surveyLinkId : INT
+class Responses {
+  +id: int
+  +survey_id: int
+  +user_id: int
+  +submitted_at: datetime
 }
 
-entity "Answer" as Answer {
-  *id : INT
-  *value : TEXT
-  *responseId : INT
-  *questionId : INT
+class Answers {
+  +id: int
+  +response_id: int
+  +question_id: int
+  +answer_text: text
+  +selected_option_ids: varchar
 }
 
-User ||--o{ Survey : creates
-Survey ||--o{ Question : contains
-Survey ||--o{ SurveyLink : links
-SurveyLink ||--o{ Response : generates
-Response ||--o{ Answer : includes
-Question ||--o{ Answer : asked by
-
+' Зв’язки між сутностями
+Users "1" --> "0..*" Surveys : creates >
+Surveys "1" --> "1..*" Questions
+Questions "1" --> "0..*" Options
+Surveys "1" --> "0..*" Responses
+Users "1" --> "0..*" Responses
+Responses "1" --> "1..*" Answers
+Questions "1" --> "0..*" Answers
 @enduml
-
 
 ## ER-модель
 
 @startuml
+' Напрямок для зручності читання
+left to right direction
 !define table(x) class x << (T,#FFAAAA) >>
-!define primaryKey(x) <u>x</u>
-!define foreignKey(x) <i>x</i>
+!define primary_key(x) <u>x</u>
 
-' --- Сутність: User ---
-table(User) {
-  primaryKey(id) INT
-  email VARCHAR
-  passwordHash VARCHAR
-  role VARCHAR
-  isActive BOOLEAN
+' Таблиці
+table(Users) {
+  primary_key(id): INT
+  login: VARCHAR(100)
+  email: VARCHAR(255)
+  password: VARCHAR(255)
 }
 
-' --- Сутність: Survey ---
-table(Survey) {
-  primaryKey(id) INT
-  title VARCHAR
-  description TEXT
-  status VARCHAR
-  creationDate DATETIME
-  closeDate DATETIME
-  foreignKey(userId) INT
+table(Surveys) {
+  primary_key(id): INT
+  title: VARCHAR(255)
+  description: TEXT
+  is_active: BOOLEAN
+  created_at: DATETIME
+  closed_at: DATETIME
+  author_id: INT
 }
 
-' --- Сутність: Question ---
-table(Question) {
-  primaryKey(id) INT
-  text TEXT
-  type VARCHAR
-  isRequired BOOLEAN
-  `order` INT
-  foreignKey(surveyId) INT
+table(Questions) {
+  primary_key(id): INT
+  survey_id: INT
+  question_text: TEXT
+  question_type: ENUM('text', 'single_choice', 'multiple_choice')
+  question_order: INT
 }
 
-' --- Сутність: SurveyLink ---
-table(SurveyLink) {
-  primaryKey(id) INT
-  token VARCHAR
-  isActive BOOLEAN
-  expiryDate DATETIME
-  clicks INT
-  foreignKey(surveyId) INT
+table(Options) {
+  primary_key(id): INT
+  question_id: INT
+  option_text: VARCHAR(255)
 }
 
-' --- Сутність: Response ---
-table(Response) {
-  primaryKey(id) INT
-  submissionDate DATETIME
-  isComplete BOOLEAN
-  foreignKey(surveyLinkId) INT
+table(Responses) {
+  primary_key(id): INT
+  survey_id: INT
+  user_id: INT
+  submitted_at: DATETIME
 }
 
-' --- Сутність: Answer ---
-table(Answer) {
-  primaryKey(id) INT
-  value TEXT
-  foreignKey(responseId) INT
-  foreignKey(questionId) INT
+table(Answers) {
+  primary_key(id): INT
+  response_id: INT
+  question_id: INT
+  answer_text: TEXT
+  selected_option_ids: VARCHAR(255)
 }
 
-' --- Зв’язки ---
-User ||--o{ Survey : has
-Survey ||--o{ Question : has
-Survey ||--o{ SurveyLink : has
-SurveyLink ||--o{ Response : has
-Response ||--o{ Answer : has
-Question ||--o{ Answer : asked_by
+' Зв’язки між таблицями
+Surveys::author_id --> Users::id
+Questions::survey_id --> Surveys::id
+Options::question_id --> Questions::id
+Responses::survey_id --> Surveys::id
+Responses::user_id --> Users::id
+Answers::response_id --> Responses::id
+Answers::question_id --> Questions::id
 
 @enduml
+
 
 ## Реляційна схема
 
