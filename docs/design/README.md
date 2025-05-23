@@ -142,3 +142,7 @@ Response ||--o{ Answer : has
 Question ||--o{ Answer : asked_by
 
 @enduml
+
+# Реляційна схема
+
+![Реляційна схема](./relation-scheme.png)
