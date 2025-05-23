@@ -7,29 +7,31 @@
 
 ## Модель бізнес-об'єктів
 @startuml
+
+skinparam style strictuml
 left to right direction
 
-' === USERS ===
-entity Users <> #900052
-entity Users.id <> #ed2f9b
-entity Users.login <> #ed2f9b
-entity Users.email <> #ed2f9b
-entity Users.password <> #ed2f9b
+' ==================== Users ====================
+entity Users #99CC66
+entity Users.id #CDE7B0
+entity Users.login #CDE7B0
+entity Users.email #CDE7B0
+entity Users.password #CDE7B0
 
 Users.id --* Users
 Users.login --* Users
 Users.email --* Users
 Users.password --* Users
 
-' === SURVEYS ===
-entity Surveys <> #754000
-entity Surveys.id <> #e39d2c
-entity Surveys.title <> #e39d2c
-entity Surveys.description <> #e39d2c
-entity Surveys.is_active <> #e39d2c
-entity Surveys.created_at <> #e39d2c
-entity Surveys.closed_at <> #e39d2c
-entity Surveys.author_id <> #e39d2c
+' ==================== Surveys ====================
+entity Surveys #FFCC66
+entity Surveys.id #FFE7B0
+entity Surveys.title #FFE7B0
+entity Surveys.description #FFE7B0
+entity Surveys.is_active #FFE7B0
+entity Surveys.created_at #FFE7B0
+entity Surveys.closed_at #FFE7B0
+entity Surveys.author_id #FFE7B0
 
 Surveys.id --* Surveys
 Surveys.title --* Surveys
@@ -39,13 +41,13 @@ Surveys.created_at --* Surveys
 Surveys.closed_at --* Surveys
 Surveys.author_id --* Surveys
 
-' === QUESTIONS ===
-entity Questions <> #006080
-entity Questions.id <> #00b3b3
-entity Questions.survey_id <> #00b3b3
-entity Questions.question_text <> #00b3b3
-entity Questions.question_type <> #00b3b3
-entity Questions.question_order <> #00b3b3
+' ==================== Questions ====================
+entity Questions #66CCCC
+entity Questions.id #B0E7E7
+entity Questions.survey_id #B0E7E7
+entity Questions.question_text #B0E7E7
+entity Questions.question_type #B0E7E7
+entity Questions.question_order #B0E7E7
 
 Questions.id --* Questions
 Questions.survey_id --* Questions
@@ -53,35 +55,35 @@ Questions.question_text --* Questions
 Questions.question_type --* Questions
 Questions.question_order --* Questions
 
-' === OPTIONS ===
-entity Options <> #334e68
-entity Options.id <> #86bbd8
-entity Options.question_id <> #86bbd8
-entity Options.option_text <> #86bbd8
+' ==================== Options ====================
+entity Options #FF99CC
+entity Options.id #F6C9DD
+entity Options.question_id #F6C9DD
+entity Options.option_text #F6C9DD
 
 Options.id --* Options
 Options.question_id --* Options
 Options.option_text --* Options
 
-' === RESPONSES ===
-entity Responses <> #7b2cbf
-entity Responses.id <> #c77dff
-entity Responses.survey_id <> #c77dff
-entity Responses.user_id <> #c77dff
-entity Responses.submitted_at <> #c77dff
+' ==================== Responses ====================
+entity Responses #9999FF
+entity Responses.id #CCCCFF
+entity Responses.survey_id #CCCCFF
+entity Responses.user_id #CCCCFF
+entity Responses.submitted_at #CCCCFF
 
 Responses.id --* Responses
 Responses.survey_id --* Responses
 Responses.user_id --* Responses
 Responses.submitted_at --* Responses
 
-' === ANSWERS ===
-entity Answers <> #ff5d8f
-entity Answers.id <> #ffb3c1
-entity Answers.response_id <> #ffb3c1
-entity Answers.question_id <> #ffb3c1
-entity Answers.answer_text <> #ffb3c1
-entity Answers.selected_option_ids <> #ffb3c1
+' ==================== Answers ====================
+entity Answers #6699CC
+entity Answers.id #AFCBE9
+entity Answers.response_id #AFCBE9
+entity Answers.question_id #AFCBE9
+entity Answers.answer_text #AFCBE9
+entity Answers.selected_option_ids #AFCBE9
 
 Answers.id --* Answers
 Answers.response_id --* Answers
@@ -89,14 +91,14 @@ Answers.question_id --* Answers
 Answers.answer_text --* Answers
 Answers.selected_option_ids --* Answers
 
-' === RELATIONS ===
-Users "1" -- "0..*" Surveys : author_id
-Surveys "1" -- "0..*" Questions : survey_id
-Questions "1" -- "0..*" Options : question_id
-Users "1" -- "0..*" Responses : user_id
-Surveys "1" -- "0..*" Responses : survey_id
-Responses "1" -- "0..*" Answers : response_id
-Questions "1" -- "0..*" Answers : question_id
+' ================ Relationships ================
+Users "1" -d- "0..*" Surveys : author_id
+Surveys "1" -d- "0..*" Questions : survey_id
+Questions "1" -d- "0..*" Options : question_id
+Surveys "1" -d- "0..*" Responses : survey_id
+Users "1" -d- "0..*" Responses : user_id
+Responses "1" -d- "0..*" Answers : response_id
+Questions "1" -d- "0..*" Answers : question_id
 
 @enduml
 
