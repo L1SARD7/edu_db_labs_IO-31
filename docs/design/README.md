@@ -7,66 +7,71 @@
 
 ## Модель бізнес-об'єктів
 @startuml
-title Business Object Model - Survey System
-
-' Напрямок зліва направо
 left to right direction
 
-class Users {
-  +id: int
-  +login: varchar
-  +email: varchar
-  +password: varchar
+' Users
+entity Users <> #900052 {
+  id
+  login
+  email
+  password
 }
 
-class Surveys {
-  +id: int
-  +title: varchar
-  +description: text
-  +is_active: boolean
-  +created_at: datetime
-  +closed_at: datetime
-  +author_id: int
+' Surveys
+entity Surveys <> #450561 {
+  id
+  title
+  description
+  is_active
+  created_at
+  closed_at
+  author_id
 }
 
-class Questions {
-  +id: int
-  +survey_id: int
-  +question_text: text
-  +question_type: enum
-  +question_order: int
+' Questions
+entity Questions <> #316e7a {
+  id
+  survey_id
+  question_text
+  question_type
+  question_order
 }
 
-class Options {
-  +id: int
-  +question_id: int
-  +option_text: varchar
+' Options
+entity Options <> #5b0673 {
+  id
+  question_id
+  option_text
 }
 
-class Responses {
-  +id: int
-  +survey_id: int
-  +user_id: int
-  +submitted_at: datetime
+' Responses
+entity Responses <> #ad5a00 {
+  id
+  survey_id
+  user_id
+  submitted_at
 }
 
-class Answers {
-  +id: int
-  +response_id: int
-  +question_id: int
-  +answer_text: text
-  +selected_option_ids: varchar
+' Answers
+entity Answers <> #04378a {
+  id
+  response_id
+  question_id
+  answer_text
+  selected_option_ids
 }
 
-' Зв’язки між сутностями
-Users "1" --> "0..*" Surveys : creates >
-Surveys "1" --> "1..*" Questions
-Questions "1" --> "0..*" Options
-Surveys "1" --> "0..*" Responses
-Users "1" --> "0..*" Responses
-Responses "1" --> "1..*" Answers
-Questions "1" --> "0..*" Answers
+' Relationships
+Users "1" -- "0..*" Surveys : author_id
+Surveys "1" -- "0..*" Questions : survey_id
+Questions "1" -- "0..*" Options : question_id
+Surveys "1" -- "0..*" Responses : survey_id
+Users "1" -- "0..*" Responses : user_id
+Responses "1" -- "0..*" Answers : response_id
+Questions "1" -- "0..*" Answers : question_id
+
 @enduml
+
 
 ## ER-модель
 
