@@ -30,7 +30,7 @@
 
 ![Screenshot_1565](https://github.com/user-attachments/assets/9dd7300d-6ab6-4b19-8f97-e8a71ed7e33c)
 
-## POST survey
+## PUT survey
 
 ![Screenshot_1566](https://github.com/user-attachments/assets/484483e2-e259-433f-8057-513c19fa1b80)
 
